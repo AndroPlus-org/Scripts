@@ -15,13 +15,13 @@ mplus_path = "./mplus"
 mejiro_path = "./mejiro"
 
 # フォントリスト
-# Open Sans ファイル名, Roboto ファイル名, M+ ファイル名, Mejiro ウェイト
+# Roboto ファイル名, M+ ファイル名, Mejiro ウェイト
 font_list = [
-    ("Roboto-Light.ttf", "Mplus1-Light.ttf", "Light"),
-    ("Roboto-Regular.ttf", "Mplus1-Regular.ttf", "Regular"),
-    ("Roboto-Medium.ttf", "Mplus1-Medium.ttf", "Semibold"),
-    ("Roboto-Bold.ttf", "Mplus1-Bold.ttf", "Bold"),
-    ("Roboto-Black.ttf", "Mplus1-Black.ttf", "Extrabold"),
+    ("Roboto-Light.ttf", "mplus-1p-light.ttf", "Light"),
+    ("Roboto-Regular.ttf", "mplus-1p-regular.ttf", "Regular"),
+    ("Roboto-Medium.ttf", "mplus-1p-medium.ttf", "Semibold"),
+    ("Roboto-Bold.ttf", "mplus-1p-bold.ttf", "Bold"),
+    ("Roboto-Black.ttf", "mplus-1p-black.ttf", "Extrabold"),
 ]
 
 def main():
@@ -62,7 +62,7 @@ def mejiro_gasp():
     return (
         (8, ('antialias',)),
         (13, ('antialias', 'symmetric-smoothing')),
-        (65535, ('gridfit', 'antialias', 'symmetric-smoothing', 'gridfit+smoothing')),
+        (65535, ('antialias', 'symmetric-smoothing')),
     )
 
 def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
@@ -85,6 +85,12 @@ def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
 
     # Roboto をマージする
     font.mergeFonts(rb_path)
+
+    # ”fancy colon” U+EE01 を U+A789 にコピー
+    font.selection.select(0xee01)
+    font.copy()
+    font.selection.select(0xa789)
+    font.paste()
 
     # フォント情報の設定
     font.sfnt_names = mejiro_sfnt_names(weight, version)

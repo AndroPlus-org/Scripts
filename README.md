@@ -21,6 +21,8 @@ bash setup.sh
 * [ここ](https://github.com/coz-m/MPLUS_FONTS) から最新の Mplus 1 をダウンロード
 * Mplus 1 を `mplus` に展開
 
+### FontForge interactive console
+
 ```
 fontforge -lang=py -script mejiro.py
 ```
