@@ -51,7 +51,7 @@ def mejiro_sfnt_names(weight, version):
         ('English (US)', 'Fullname', 'Mejiro-{0}'.format(weight)),
         ('English (US)', 'Version', version),
         ('English (US)', 'PostScriptName', 'Mejiro-{0}'.format(weight)),
-        ('English (US)', 'Vendor URL', 'https://androplus.org/'),
+        ('English (US)', 'Vendor URL', 'https://mejiro.andro.plus'),
         ('English (US)', 'Preferred Family', 'Mejiro'),
         ('English (US)', 'Preferred Styles', weight),
         ('Japanese', 'Preferred Family', 'Mejiro'),
