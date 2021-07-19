@@ -21,7 +21,7 @@ font_list = [
     ("Roboto-Regular.ttf", "mplus-1p-regular.ttf", "Regular"),
     ("Roboto-Medium.ttf", "mplus-1p-medium.ttf", "Semibold"),
     ("Roboto-Bold.ttf", "mplus-1p-bold.ttf", "Bold"),
-    ("Roboto-Black.ttf", "mplus-1p-black.ttf", "Extrabold"),
+    ("Roboto-Black.ttf", "mplus-1p-heavy.ttf", "Extrabold"),
 ]
 
 def main():
