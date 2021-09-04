@@ -17,6 +17,7 @@ mejiro_path = "./mejiro"
 # フォントリスト
 # Roboto ファイル名, M+ ファイル名, Mejiro ウェイト
 font_list = [
+    ("Roboto-Thin.ttf", "mplus-1p-thin.ttf", "Thin"),
     ("Roboto-Light.ttf", "mplus-1p-light.ttf", "Light"),
     ("Roboto-Regular.ttf", "mplus-1p-regular.ttf", "Regular"),
     ("Roboto-Medium.ttf", "mplus-1p-medium.ttf", "Semibold"),
