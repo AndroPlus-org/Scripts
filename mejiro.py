@@ -86,6 +86,10 @@ def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
 
     # Roboto をマージする
     font.mergeFonts(rb_path)
+    for gs in font.gpos_lookups:
+        li = font.getLookupInfo(gs)
+        if li[2][0][0] == 'kern':
+            font.removeLookup(gs)
 
     # ”fancy colon” U+EE01 を U+A789 にコピー
     font.selection.select(0xee01)
