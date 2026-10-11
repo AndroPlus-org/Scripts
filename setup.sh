@@ -2,6 +2,15 @@
 
 bldblu=${txtbld}$(tput setaf 4)
 
+# スクリプトのあるディレクトリで実行する
+cd "$(dirname "$0")" || exit 1
+
+# ダウンロード先のフォルダに前回の中身が残っていれば削除する (.gitkeep は残す)
+for dir in opensans roboto mplus; do
+	mkdir -p "$dir"
+	find "$dir" -mindepth 1 ! -name .gitkeep -exec rm -rf {} +
+done
+
 # Google Fonts の zip は可変フォントと static/ フォルダに分かれているため、
 # static/ の静的フォントを各ディレクトリの直下に置く
 cd opensans
