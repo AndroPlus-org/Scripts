@@ -12,6 +12,12 @@ wget https://fonts.google.com/download?family=Roboto -O roboto.zip
 unzip roboto.zip
 cd ../
 
+# M+ 1p (M+ OUTLINE FONTS TESTFLIGHT 063)
+# 配布元の OSDN は終了したため、Ubuntu のアーカイブにある元の tarball から取得する
+wget https://archive.ubuntu.com/ubuntu/pool/universe/f/fonts-mplus/fonts-mplus_063.orig.tar.xz -O mplus/mplus.tar.xz
+tar xJf mplus/mplus.tar.xz -C mplus --strip-components=1 --wildcards '*/mplus-1p-*.ttf'
+rm mplus/mplus.tar.xz
+
 # バリアブルフォント版 (koruri_vf.py) 用
 gf=https://raw.githubusercontent.com/google/fonts/main/ofl
 wget "$gf/opensans/OpenSans%5Bwdth,wght%5D.ttf" -O "opensans/OpenSans[wdth,wght].ttf"
@@ -45,7 +51,7 @@ echo "${bldblu}                      ** #**                      "
 echo "${bldblu}                        **                        "
 
 echo "Koruri を生成するには FontForge をインストールし、"
-echo "最新の M+ 1p を mplus/ に展開した後、以下を実行してください"
+echo "以下を実行してください"
 echo "fontforge -lang=py -script koruri.py"
 echo ""
 echo "バリアブルフォント版は fonttools をインストールした後、以下を実行してください"

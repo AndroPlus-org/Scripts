@@ -12,7 +12,8 @@ git clone https://github.com/Koruri/Scripts.git make_koruri
 cd make_koruri
 ```
 
-Open Sans と Roboto は `setup.sh` の中でダウンロード、展開されます。
+Open Sans・Roboto・M+ 1p は `setup.sh` の中でダウンロード、展開されます。
+M+ 1p は配布元の OSDN が終了したため、[Ubuntu のアーカイブ](https://archive.ubuntu.com/ubuntu/pool/universe/f/fonts-mplus/)にある `M+ OUTLINE FONTS TESTFLIGHT 063` の元の tarball（`fonts-mplus_063.orig.tar.xz`）から取得します。
 
 ```
 ./setup.sh
@@ -20,8 +21,6 @@ Open Sans と Roboto は `setup.sh` の中でダウンロード、展開され�
 
 あとは
 
-* [ここ](https://osdn.jp/projects/mplus-fonts/releases/62344) から最新の `M+ OUTLINE FONTS TESTFLIGHT` をダウンロード
-* M+ 1p を `mplus` に展開
 * [FontForge](https://fontforge.org/) をインストールしておく
 
 ```
