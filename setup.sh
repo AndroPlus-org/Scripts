@@ -11,19 +11,18 @@ for dir in opensans roboto mplus; do
 	find "$dir" -mindepth 1 ! -name .gitkeep -exec rm -rf {} +
 done
 
-# Google Fonts の zip は可変フォントと static/ フォルダに分かれているため、
-# static/ の静的フォントを各ディレクトリの直下に置く
-cd opensans
-wget https://fonts.google.com/download?family=Open+Sans -O opensans.zip
-unzip -o opensans.zip
-if [ -d static ]; then cp static/*.ttf ./; fi
-cd ../
+# fonts.google.com/download は JavaScript でダウンロードする HTML を返すようになり、
+# wget では zip を取得できないため、配布元のリポジトリから直接取得する
 
-cd roboto
-wget https://fonts.google.com/download?family=Roboto -O roboto.zip
-unzip -o roboto.zip
-if [ -d static ]; then cp static/*.ttf ./; fi
-cd ../
+# Open Sans (Google Fonts と同じ v3 の静的フォント)
+for weight in Light Regular SemiBold Bold ExtraBold; do
+	wget "https://raw.githubusercontent.com/googlefonts/opensans/main/fonts/ttf/OpenSans-$weight.ttf" -O "opensans/OpenSans-$weight.ttf"
+done
+
+# Roboto (Fancy Colon のみ使用)
+for weight in Light Regular Medium Bold Black; do
+	wget "https://raw.githubusercontent.com/googlefonts/roboto/main/src/hinted/Roboto-$weight.ttf" -O "roboto/Roboto-$weight.ttf"
+done
 
 # M+ 1p (M+ OUTLINE FONTS TESTFLIGHT 063)
 # 配布元の OSDN は終了したため、Ubuntu のアーカイブにある元の tarball から取得する
