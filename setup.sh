@@ -2,14 +2,18 @@
 
 bldblu=${txtbld}$(tput setaf 4)
 
+# Google Fonts の zip は可変フォントと static/ フォルダに分かれているため、
+# static/ の静的フォントを各ディレクトリの直下に置く
 cd opensans
 wget https://fonts.google.com/download?family=Open+Sans -O opensans.zip
-unzip opensans.zip
+unzip -o opensans.zip
+if [ -d static ]; then cp static/*.ttf ./; fi
 cd ../
 
 cd roboto
 wget https://fonts.google.com/download?family=Roboto -O roboto.zip
-unzip roboto.zip
+unzip -o roboto.zip
+if [ -d static ]; then cp static/*.ttf ./; fi
 cd ../
 
 # M+ 1p (M+ OUTLINE FONTS TESTFLIGHT 063)
