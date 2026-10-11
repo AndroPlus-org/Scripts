@@ -11,17 +11,24 @@ for dir in opensans roboto mplus; do
 	find "$dir" -mindepth 1 ! -name .gitkeep -exec rm -rf {} +
 done
 
-# fonts.google.com/download は JavaScript でダウンロードする HTML を返すようになり、
-# wget では zip を取得できないため、配布元のリポジトリから直接取得する
+# Open Sans と Roboto は Google Fonts の可変フォントを取得し、
+# koruri.py (font_list) で使うウェイトの静的フォントを fontTools で切り出す
+# (fonts.google.com/download は wget で zip を取得できないため)
+gf=https://raw.githubusercontent.com/google/fonts/main/ofl
+wget "$gf/opensans/OpenSans%5Bwdth,wght%5D.ttf" -O "opensans/OpenSans[wdth,wght].ttf"
+wget "$gf/roboto/Roboto%5Bwdth,wght%5D.ttf" -O "roboto/Roboto[wdth,wght].ttf"
 
-# Open Sans (Google Fonts と同じ v3 の静的フォント)
-for weight in Light Regular SemiBold Bold ExtraBold; do
-	wget "https://raw.githubusercontent.com/googlefonts/opensans/main/fonts/ttf/OpenSans-$weight.ttf" -O "opensans/OpenSans-$weight.ttf"
+# ファイル名:wght
+opensans_list="Light:300 Regular:400 SemiBold:600 Bold:700 ExtraBold:800"
+roboto_list="Light:300 Regular:400 Medium:500 Bold:700 Black:900"
+
+for item in $opensans_list; do
+	python3 -m fontTools.varLib.instancer "opensans/OpenSans[wdth,wght].ttf" \
+		wght=${item#*:} wdth=100 --update-name-table -q -o "opensans/OpenSans-${item%:*}.ttf" || exit 1
 done
-
-# Roboto (Fancy Colon のみ使用)
-for weight in Light Regular Medium Bold Black; do
-	wget "https://raw.githubusercontent.com/googlefonts/roboto/main/src/hinted/Roboto-$weight.ttf" -O "roboto/Roboto-$weight.ttf"
+for item in $roboto_list; do
+	python3 -m fontTools.varLib.instancer "roboto/Roboto[wdth,wght].ttf" \
+		wght=${item#*:} wdth=100 --update-name-table -q -o "roboto/Roboto-${item%:*}.ttf" || exit 1
 done
 
 # M+ 1p (M+ OUTLINE FONTS TESTFLIGHT 063)
@@ -31,9 +38,6 @@ tar xJf mplus/mplus.tar.xz -C mplus --strip-components=1 --wildcards '*/mplus-1p
 rm mplus/mplus.tar.xz
 
 # バリアブルフォント版 (koruri_vf.py) 用
-gf=https://raw.githubusercontent.com/google/fonts/main/ofl
-wget "$gf/opensans/OpenSans%5Bwdth,wght%5D.ttf" -O "opensans/OpenSans[wdth,wght].ttf"
-wget "$gf/roboto/Roboto%5Bwdth,wght%5D.ttf" -O "roboto/Roboto[wdth,wght].ttf"
 wget "$gf/mplus1/MPLUS1%5Bwght%5D.ttf" -O "mplus/MPLUS1[wght].ttf"
 
 echo "${bldblu}                        **                        "
