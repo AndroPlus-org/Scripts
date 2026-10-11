@@ -66,6 +66,18 @@ def mejiro_gasp():
         (65535, ('antialias', 'symmetric-smoothing')),
     )
 
+def copy_hinting_tables(src, dst):
+    for table in ('fpgm', 'prep', 'cvt '):
+        data = src.getTableData(table)
+        if data is not None:
+            dst.setTableData(table, data)
+    dst.maxp_FDEFs = src.maxp_FDEFs
+    dst.maxp_IDEFs = src.maxp_IDEFs
+    dst.maxp_maxStackDepth = src.maxp_maxStackDepth
+    dst.maxp_storageCnt = src.maxp_storageCnt
+    dst.maxp_twilightPtCnt = src.maxp_twilightPtCnt
+    dst.maxp_zones = src.maxp_zones
+
 def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
     # M+ を開く
     font = fontforge.open(mp_path)
@@ -90,6 +102,13 @@ def generate_mejiro(rb_path, mp_path, ko_path, weight, version):
         li = font.getLookupInfo(gs)
         if li[2][0][0] == 'kern':
             font.removeLookup(gs)
+
+    # Roboto のヒンティング用テーブルをコピーする
+    # mergeFonts はグリフ毎の命令しかコピーしないため、
+    # 参照先の fpgm/prep/cvt が無いとヒンティングが壊れ
+    # e や s などの下端が掠れる
+    copy_hinting_tables(rbfont, font)
+    rbfont.close()
 
     # ”fancy colon” U+EE01 を U+A789 にコピー
     font.selection.select(0xee01)
